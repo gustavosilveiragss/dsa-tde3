@@ -6,7 +6,7 @@ Este repositório diz respeito ao TDE 03 da disciplina de Resolução de Problem
 
 ```txt
 - 1 algoritmo do grupo A (Insert Sort, Selection Sort, Comb Sort, Bogo Sort)
-- 2 algoritmos do grupo B (Merge Sort , Quick Sort, Shell Sort, Heap Sort)
+- 2 algoritmos do grupo B (Merge Sort , Quick Sort, Shell Sort, Shell Sort)
 - 1 algoritmo do grupo C (Radix sort, Gnome Sort, Counting sort, Bucket sort, Cocktail sort , Timsort, Stooge Sort)
 ```
 
@@ -14,11 +14,11 @@ Assim, a **dupla** escolheu:
 
 ```txt
 - Grupo A - Bogo Sort
-- Grupo B - Merge Sort, Heap Sort
+- Grupo B - Merge Sort, Shell Sort
 - Grupo C - Cocktail Sort
 ```
 
-Para esse grupo de algoritmos, devem ser realizados **testes com vetores de inteiros**, sendo necessários testes com os tamanhos de **1.000, 10.000, 100.000, 1.000.000 e 10.000.000** para, depois de **5 rodadas de teste para cada quantidade**, ser apresentada uma média. Assim, poderemos realizar um **relatório comparativo dos algoritmos**.
+Para esse grupo de algoritmos, devem ser realizados **testes com vetores de inteiros**, sendo necessários testes com os tamanhos de **1.000, 10.000, 100.000 e 1.000.000** para, depois de **5 rodadas de teste para cada quantidade**, ser apresentada uma média. Assim, poderemos realizar um **relatório comparativo dos algoritmos**.
 
 Por último, existe a seguinte limitação: "Só será permitida a utilização de vetores, estruturas de nó, tipos primitivos (int, float, boolean), String, estruturas de matrizes (não a função pronta), random, seeds, formas para ler os dados como buffer e scanner e bibliotecas de representação visual e exportação dos dados para análise e construção dos gráficos. Os gráficos podem ser feitos em qualquer ferramenta."
 
@@ -36,7 +36,7 @@ O bogo sort é um algoritmo de ordenação extremamente ineficiente. Seu funcion
 
 ### B1.2 Resultados
 
-## B2 Heap Sort
+## B2 Shell Sort
 
 ### B2.1 Explicação
 
