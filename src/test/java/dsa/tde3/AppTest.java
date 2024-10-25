@@ -12,7 +12,7 @@ public class AppTest {
 //    private static final int[] SIZES = {1_000, 10_000, 100_000, 1_000_000};
     private static final int[] SIZES = {10, 100, 1_000};
     private static final int ROUNDS = 5;
-    private final Random rand = new Random(2); // Seed fixa para garantir reprodutibilidade
+    private final Random rand = new Random(18); // Seed fixa para garantir reprodutibilidade
 
     @Test
     public void testAllAlgorithms() {
@@ -63,13 +63,34 @@ public class AppTest {
     private int[] generateArray(int size) {
         int[] arr = new int[size];
         for (int i = 0; i < size; i++)
-            arr[i] = rand.nextInt(1000000);
+            arr[i] = rand.nextInt(1_000_000);
         return arr;
     }
 
     private static String formatTime(long ns) {
-        if (ns < 1_000_000)
-            return String.format("%d ns", ns);
-        return String.format("%d ns (%.2f ms)", ns, ns / 1_000_000.0);
+        if (ns < 1_000_000) return String.format("%s ns", formatDigits(ns));
+
+        long msInt = ns / 1_000_000;
+
+        if (msInt < 1_000)
+            return String.format("%s ns (%s ms)", formatDigits(ns), formatDigits(msInt) + String.format("%.4f", (ns / 1_000_000.0) % 1).substring(1));
+
+        long secInt = msInt / 1_000;
+        if (secInt < 60)
+            return String.format("%s ns (%s s)", formatDigits(ns), formatDigits(secInt) + String.format("%.4f", (ns / 1_000_000.0) / 1_000 % 1).substring(1));
+
+        long minInt = secInt / 60;
+        if (minInt < 60)
+            return String.format("%s ns (%s min)", formatDigits(ns), formatDigits(minInt) + String.format("%.4f", secInt / 60.0 % 1).substring(1));
+
+        long hrInt = minInt / 60;
+        return String.format("%s ns (%s hr)", formatDigits(ns), formatDigits(hrInt) + String.format("%.4f", minInt / 60.0 % 1).substring(1));
     }
+
+    private static String formatDigits(long n) {
+        StringBuilder sb = new StringBuilder(Long.toString(n));
+        for (int i = sb.length() - 3; i > 0; i -= 3) sb.insert(i, '\'');
+        return sb.toString();
+    }
+
 }

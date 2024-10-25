@@ -63,7 +63,7 @@ public class ShellSort extends SortingAlgorithm {
 
         if (DEBUG) {
             System.out.println("\nFinal sorted array array:");
-            printArray(array, array.length - 1);
+            printArray(array);
         }
     }
 
@@ -98,21 +98,5 @@ public class ShellSort extends SortingAlgorithm {
             System.out.print(marker);
         }
         System.out.println();
-    }
-
-    private void printArray(int[] array, int end) {
-        String offset = "  ".repeat(0);
-        System.out.printf("%sArray [%d-%d]: ", offset, 0, end);
-        printSubArray(array, end);
-    }
-
-    private void printSubArray(int[] array, int end) {
-        System.out.print("[");
-        for (int i = 0; i <= Math.min(end, 9); i++) {
-            System.out.print(array[i]);
-            if (i < end && i < 9) System.out.print(", ");
-        }
-        if (end > 9) System.out.print(", ...");
-        System.out.println("]");
     }
 }
