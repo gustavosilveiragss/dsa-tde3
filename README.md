@@ -38,7 +38,7 @@ O Bogo Sort é um algoritmo de ordenação extremamente ineficiente. Seu funcion
 
 Por sua natureza imprevisível, o Bogo Sort se mostrou inviável para testes. O que decidimos fazer foi apenas incluir um teste com 10 elementos, demonstrando a instabilidade, com 5 rodadas com resultados completamente diferentes.
 
-![[bogosort.png]]
+![bogosort](https://github.com/gustavosilveiragss/dsa-tde3/blob/master/analysis/bogosort.png?raw=true)
 
 ## B1 Merge Sort 
 
@@ -50,7 +50,7 @@ O Merge Sort é um algoritmo de ordenação eficiente. Seu funcionamento básico
 
 O Merge Sort apresentou ótimos resultados consistentemente
 
-![[mergesort.png]]
+![mergesort](https://github.com/gustavosilveiragss/dsa-tde3/blob/master/analysis/mergesort.png?raw=true)
 
 ## B2 Shell Sort 
 ### B2.1 Explicação  
@@ -63,7 +63,7 @@ $$\frac{3^k-1}{2} \text{ , não maior que } [\frac{N}{3}]$$
 
 O Shell Sort também apresentou resultados ótimos, sendo até melhores que o Merge Sort para certas quantidades.
 
-![[shellsort.png]]
+![shellsort](https://github.com/gustavosilveiragss/dsa-tde3/blob/master/analysis/shellsort.png?raw=true)
 
 ## C1 Cocktail Sort  
 ### C1.1 Explicação
@@ -74,7 +74,7 @@ O Cocktail Sort, também conhecido como Bidirectional Bubble Sort, é uma varia�
 
 Já o Cocktail Sort apresentou uma performance ruim, com os resultados de 100k tendo próximo dos 8 segundos de execução, e 1 milhão, 12 minutos.
 
-![[cocktailsort.png]]
+![cocktailsort](https://github.com/gustavosilveiragss/dsa-tde3/blob/master/analysis/cocktailsort.png?raw=true)
 
 ## A2 Insertion Sort
 ### A2.1 Explicação
@@ -85,7 +85,7 @@ O Insertion Sort é um algoritmo simples que funciona construindo o vetor ordena
 
 O Insertion Sort apresentou resultados relativamente bons, comparado à outros implementados. Dado sua simplicidade, é bastante positivo
 
-![[insertionsort.png]]
+![insertionsort](https://github.com/gustavosilveiragss/dsa-tde3/blob/master/analysis/insertionsort.png?raw=true)
 
 ## Bubble Sort
 ### Explicação
@@ -96,18 +96,18 @@ O Bubble Sort é um algoritmo que faz com que os maiores valores "borbulhem" gra
 
 Dos algoritmos implementados pela equipe, apresentou a pior performance, com 100k levando 12 segundos e 1 milhão, 20 minutos
 
-![[bubblesort.png]]
+![bubblesort](https://github.com/gustavosilveiragss/dsa-tde3/blob/master/analysis/bubblesort.png?raw=true)
 
 ## Comparativos Finais
 
 Pela similaridade dos algoritmos Shell e Insertion Sort, fizemos também uma comparação entre os dois:
 
-![[shell_insertion.png]]
+![shell_insertion](https://github.com/gustavosilveiragss/dsa-tde3/blob/master/analysis/shell_insertion.png?raw=true)
 
 Igualmente, comparamos o Cocktail e Bubble Sort:
 
-![[cocktail_bubble.png]]
+![cocktail_bubble](https://github.com/gustavosilveiragss/dsa-tde3/blob/master/analysis/cocktail_bubble.png?raw=true)
 
 Para análise final, comparamos todos os algoritmos, entre diferentes quantidades. Podemos concluir que, dadas as condições dos algoritmos (Shell usando sequência de Knuth) e os tamanhos especificados, os algoritmos Shell e Merge Sort têm melhor performance. Sendo que na maioria dos casos o Merge Sort é mais veloz.
 
-![[all.png]]
+![all](https://github.com/gustavosilveiragss/dsa-tde3/blob/master/analysis/all.png?raw=true)
