@@ -1,8 +1,6 @@
 package dsa.tde3;
 
 import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -13,7 +11,7 @@ public class App {
     private static final int ROUNDS = DEBUG ? 1 : 5;
     private static final Random rand = new Random(64); // Seed fixa para garantir reprodutibilidade
     private static final BlockingQueue<String> resultQueue = new LinkedBlockingQueue<>();
-    private static volatile boolean testsCompleted = false;
+    private static boolean testsCompleted = false;
     private static final String CSV_FILE = "analysis/results1.csv";
 
     static {
@@ -31,7 +29,6 @@ public class App {
                         fw.write(result);
                         fw.flush();
                     } else {
-                        // evita consumo excessivo de CPU
                         System.gc();
                         Thread.sleep(100);
                     }
@@ -88,13 +85,12 @@ public class App {
     }
 
     public static void main(String[] args) {
-        testSortingAlgo(new BogoSort(DEBUG));
-//        testSortingAlgo(new InsertionSort(DEBUG));
-//        testSortingAlgo(new MergeSort(DEBUG));
-//        testSortingAlgo(new ShellSort(DEBUG));
-//        testSortingAlgo(new CocktailSort(DEBUG));
-//        testSortingAlgo(new BubbleSort(DEBUG));
-
+//        testSortingAlgo(new BogoSort(DEBUG));
+        testSortingAlgo(new InsertionSort(DEBUG));
+        testSortingAlgo(new MergeSort(DEBUG));
+        testSortingAlgo(new ShellSort(DEBUG));
+        testSortingAlgo(new CocktailSort(DEBUG));
+        testSortingAlgo(new BubbleSort(DEBUG));
         testsCompleted = true;
     }
 }
