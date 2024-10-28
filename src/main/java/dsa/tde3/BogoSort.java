@@ -3,10 +3,8 @@ package dsa.tde3;
 import java.util.Random;
 
 public class BogoSort extends SortingAlgorithm {
-    private final boolean DEBUG;
-
     public BogoSort(boolean debug) {
-        DEBUG = debug;
+        super(debug);
     }
 
     @Override
@@ -25,13 +23,13 @@ public class BogoSort extends SortingAlgorithm {
             }
 
             if (DEBUG) {
-                System.out.printf("Attempt %d: ", ++attempts);
+                System.out.printf("Tentativa %d: ", ++attempts);
                 printArray(arr);
             }
         }
 
         if (DEBUG) {
-            System.out.printf("Final sorted array after %d attempts: ", attempts);
+            System.out.printf("Vetor ordenado final, depois de %d tentativas: ", attempts);
             printArray(arr);
         }
     }

@@ -9,41 +9,64 @@ import static org.junit.Assert.*;
 import java.util.Random;
 
 public class AppTest {
-//    private static final int[] SIZES = {1_000, 10_000, 100_000, 1_000_000};
-    private static final int[] SIZES = {10, 100, 1_000};
-    private static final int ROUNDS = 5;
-    private final Random rand = new Random(18); // Seed fixa para garantir reprodutibilidade
+    private static final boolean DEBUG = false;
+    private static final int[] SIZES = DEBUG ? new int[]{10} : new int[]{1_000, 10_000, 100_000};
+    private static final int ROUNDS = DEBUG ? 1 : 5;
+    private final Random rand = new Random(64); // Seed fixa para garantir reprodutibilidade
+
+    @Test
+    public void testBogoSort() {
+        testSortingAlgo(new BogoSort(DEBUG));
+    }
+
+    @Test
+    public void testMergeSort() {
+        testSortingAlgo(new MergeSort(DEBUG));
+    }
+
+    @Test
+    public void testShellSort() {
+        testSortingAlgo(new ShellSort(DEBUG));
+    }
+
+    @Test
+    public void testCocktailSort() {
+        testSortingAlgo(new CocktailSort(DEBUG));
+    }
+
+    @Test
+    public void testBubbleSort() {
+        testSortingAlgo(new BubbleSort(DEBUG));
+    }
+
+    @Test
+    public void testBubbleCocktail() {
+        testBubbleSort();
+        testCocktailSort();
+    }
+
+    @Test
+    public void testInsertionSort() {
+        testSortingAlgo(new InsertionSort(DEBUG));
+    }
 
     @Test
     public void testAllAlgorithms() {
 //        testBogoSort();
         testMergeSort();
         testShellSort();
-    }
-
-    @Test
-    public void testBogoSort() {
-        testSortingAlgo(new BogoSort(false));
-    }
-
-    @Test
-    public void testMergeSort() {
-        testSortingAlgo(new MergeSort(false));
-    }
-
-    @Test
-    public void testShellSort() {
-        testSortingAlgo(new ShellSort(false));
+        testCocktailSort();
+        testBubbleSort();
+        testInsertionSort();
     }
 
     private void testSortingAlgo(SortingAlgorithm sortingAlgorithm) {
-        System.out.println("Testing " + sortingAlgorithm.getClass().getSimpleName() + "...");
+        System.out.println("Testando " + sortingAlgorithm.getClass().getSimpleName() + "...");
         for (int size : SIZES) {
             long totalTime = 0;
 
             for (int round = 0; round < ROUNDS; round++) {
-                int[] arr = generateArray(size);
-//                int[] arr = {5, 2, 4, 6, 1, 3};
+                int[] arr = DEBUG ? new int[]{5, 2, 4, 6, 1, 3, 8, 6, 9, 7} : TestingUtils.generateArray(rand, size);
                 long startTime = System.nanoTime();
 
                 sortingAlgorithm.sort(arr);
@@ -53,44 +76,10 @@ public class AppTest {
                 long roundTime = endTime - startTime;
                 totalTime += roundTime;
 
-                System.out.printf("Size: %d, Round: %d, Time: %s%n", size, round + 1, formatTime(roundTime));
+                System.out.printf("Tamanho: %d, Round: %d, Tempo: %s%n", size, round + 1, TestingUtils.formatTime(roundTime));
             }
 
-            System.out.printf("Average time for size %d: %s%n%n", size, formatTime(totalTime / ROUNDS));
+            System.out.printf("Tempo médio para tamanho %d: %s%n%n", size, TestingUtils.formatTime(totalTime / ROUNDS));
         }
     }
-
-    private int[] generateArray(int size) {
-        int[] arr = new int[size];
-        for (int i = 0; i < size; i++)
-            arr[i] = rand.nextInt(1_000_000);
-        return arr;
-    }
-
-    private static String formatTime(long ns) {
-        if (ns < 1_000_000) return String.format("%s ns", formatDigits(ns));
-
-        long msInt = ns / 1_000_000;
-
-        if (msInt < 1_000)
-            return String.format("%s ns (%s ms)", formatDigits(ns), formatDigits(msInt) + String.format("%.4f", (ns / 1_000_000.0) % 1).substring(1));
-
-        long secInt = msInt / 1_000;
-        if (secInt < 60)
-            return String.format("%s ns (%s s)", formatDigits(ns), formatDigits(secInt) + String.format("%.4f", (ns / 1_000_000.0) / 1_000 % 1).substring(1));
-
-        long minInt = secInt / 60;
-        if (minInt < 60)
-            return String.format("%s ns (%s min)", formatDigits(ns), formatDigits(minInt) + String.format("%.4f", secInt / 60.0 % 1).substring(1));
-
-        long hrInt = minInt / 60;
-        return String.format("%s ns (%s hr)", formatDigits(ns), formatDigits(hrInt) + String.format("%.4f", minInt / 60.0 % 1).substring(1));
-    }
-
-    private static String formatDigits(long n) {
-        StringBuilder sb = new StringBuilder(Long.toString(n));
-        for (int i = sb.length() - 3; i > 0; i -= 3) sb.insert(i, '\'');
-        return sb.toString();
-    }
-
 }

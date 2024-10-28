@@ -1,15 +1,17 @@
 package dsa.tde3;
 
 public class MergeSort extends SortingAlgorithm {
-    private final boolean DEBUG;
-
     public MergeSort(boolean debug) {
-        DEBUG = debug;
+        super(debug);
     }
 
     @Override
     public void sort(int[] array) {
         mergeSort(array, 0, array.length - 1, 0);
+        if (DEBUG) {
+            System.out.print("\nVetor ordenado final: ");
+            printArray(array, 0, array.length - 1, array.length - 1, 0);
+        }
     }
 
     // Método recursivo, array é o vetor a ser ordenado, left e right são os indices de início e fim do vetor/subvetor
@@ -51,7 +53,7 @@ public class MergeSort extends SortingAlgorithm {
 
         if (DEBUG) {
             String offset = "  ".repeat(depth);
-            System.out.printf("%sMerging [%d-%d]: ", offset, left, right);
+            System.out.printf("%sCombinando [%d-%d]: ", offset, left, right);
             printSubArray(array, left, right);
         }
     }
@@ -60,11 +62,11 @@ public class MergeSort extends SortingAlgorithm {
 
     private void printArray(int[] array, int left, int middle, int right, int depth) {
         String offset = "  ".repeat(depth);
-        System.out.printf("%sSplitting [%d-%d]: ", offset, left, right);
+        System.out.printf("%sDividindo [%d-%d]: ", offset, left, right);
         printSubArray(array, left, right);
-        System.out.printf("%s→ Left [%d-%d]: ", offset, left, middle);
+        System.out.printf("%s→ Esquerda [%d-%d]: ", offset, left, middle);
         printSubArray(array, left, middle);
-        System.out.printf("%s→ Right [%d-%d]: ", offset, middle + 1, right);
+        System.out.printf("%s→ Direita [%d-%d]: ", offset, middle + 1, right);
         printSubArray(array, middle + 1, right);
     }
 

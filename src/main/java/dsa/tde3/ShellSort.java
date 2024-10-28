@@ -1,10 +1,8 @@
 package dsa.tde3;
 
 public class ShellSort extends SortingAlgorithm {
-    private final boolean DEBUG;
-
     public ShellSort(boolean debug) {
-        DEBUG = debug;
+        super(debug);
     }
 
     @Override
@@ -15,15 +13,13 @@ public class ShellSort extends SortingAlgorithm {
         int gap = 1;
         while (gap < (array.length / 3)) gap = 3 * gap + 1;
 
-        if (DEBUG) {
-            System.out.println("Gap sequence:");
+        if (DEBUG)
             printGapSequence(gap);
-        }
 
         // Reduz a distância entre comparações até gap = 1
         while (gap > 0) {
             if (DEBUG) {
-                System.out.printf("\nProcessing with gap = %d:%n", gap);
+                System.out.printf("\nComparação com Distância = %d:%n", gap);
                 printArrayWithGaps(array, gap, 0);
             }
 
@@ -32,18 +28,14 @@ public class ShellSort extends SortingAlgorithm {
                 // Elemento a ser inserido no grupo ordenado
                 int temp = array[i];
 
-                if (DEBUG) {
-                    System.out.printf("  Inserting element %d at position %d%n\n  Comparing with elements at positions: ", temp, i);
-                    for (int pos = i - gap; pos >= 0; pos -= gap)
-                        System.out.printf("%d ", pos);
-                    System.out.println();
-                }
+                if (DEBUG)
+                    System.out.printf("  Comparando o elemento da posição %d com o da posição %d: \n", i - gap, i);
 
                 // Move os elementos maiores que temp para frente
                 int j = i;
                 while (j >= gap && array[j - gap] > temp) {
                     if (DEBUG)
-                        System.out.printf("    Moving %d from position %d to position %d%n", array[j - gap], j - gap, j);
+                        System.out.printf("  Movendo \"%d\" da posição %d para posição %d%n", array[j - gap], j - gap, j);
                     array[j] = array[j - gap];
                     j -= gap;
                 }
@@ -58,11 +50,11 @@ public class ShellSort extends SortingAlgorithm {
             gap /= 3;
 
             if (DEBUG && gap > 0)
-                System.out.printf("\nReducing gap to %d%n", gap);
+                System.out.printf("\nReduzindo distância para %d%n", gap);
         }
 
         if (DEBUG) {
-            System.out.println("\nFinal sorted array array:");
+            System.out.print("\nVetor ordenado final: ");
             printArray(array);
         }
     }
@@ -70,9 +62,9 @@ public class ShellSort extends SortingAlgorithm {
     // Métodos auxiliares para visualização da execução do algoritmo
 
     private void printGapSequence(int initialGap) {
-        System.out.print("Gap sequence: ");
+        System.out.print("\nSequência de Distâncias:");
         for (int gap = initialGap; gap > 0; gap /= 3)
-            System.out.print(gap + " ");
+            System.out.printf("%d ", gap);
         System.out.println();
     }
 
@@ -86,15 +78,15 @@ public class ShellSort extends SortingAlgorithm {
         System.out.println();
 
         System.out.print(offset);
-        System.out.print("Value:  ");
+        System.out.print("Valor:  ");
         for (int j : array)
             System.out.printf("%-4d", j);
         System.out.println();
 
         System.out.print(offset);
-        System.out.print("Groups: ");
+        System.out.print("Grupos: ");
         for (int i = 0; i < array.length; i++) {
-            String marker = (i % gap == 0) ? "↓   " : "    ";
+            String marker = (i % gap == 0) ? "*   " : "    ";
             System.out.print(marker);
         }
         System.out.println();

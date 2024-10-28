@@ -1,15 +1,29 @@
 package dsa.tde3;
 
 public abstract class SortingAlgorithm {
+    protected final boolean DEBUG;
+
+    public SortingAlgorithm(boolean debug) {
+        DEBUG = debug;
+    }
+
     public abstract void sort(int[] arr);
 
+    // Método utilitário para verificar se vetor está ordenado
     protected boolean isSorted(int[] arr) {
         for (int i = 1; i < arr.length; i++)
             if (arr[i - 1] > arr[i]) return false;
         return true;
     }
 
-    // Debugging purposes only
+    // Método utilitário para implementações que façam troca de elementos dessa forma (muito comum)
+    protected void swap(int[] array, int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    // Método utilitário apenas para debugar
     protected void printArray(int[] arr) {
         System.out.print("[");
         for (int i = 0; i < Math.min(arr.length, 10); i++)

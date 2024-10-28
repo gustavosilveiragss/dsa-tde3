@@ -1,0 +1,6 @@
+algorithm,array_size,round,execution_time_ns,execution_time_formatted
+BogoSort,10,1,282212227,282_212_227 ns (282.2122 ms)
+BogoSort,10,2,81536166,81_536_166 ns (81.5362 ms)
+BogoSort,10,3,508288086,508_288_086 ns (508.2881 ms)
+BogoSort,10,4,176809776,176_809_776 ns (176.8098 ms)
+BogoSort,10,5,54214218,54_214_218 ns (54.2142 ms)
