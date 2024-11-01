@@ -7,6 +7,9 @@ public class CocktailSort extends SortingAlgorithm {
 
     @Override
     public void sort(int[] array) {
+        iterations = 0;
+        swaps = 0;
+
         // Inicia passagens pelo index zero até o último
         int start = 0;
         int end = array.length;
@@ -14,6 +17,8 @@ public class CocktailSort extends SortingAlgorithm {
 
         // Enquanto ocorrerem trocas, o vetor ainda está sendo ordenado
         while (swapped) {
+            iterations++;
+
             // Reinicia indicador para primeira passagem
             swapped = false;
 
@@ -24,8 +29,10 @@ public class CocktailSort extends SortingAlgorithm {
             }
 
             // Passagem LTR do vetor, fazendo trocas, caso necessário
-            for (int i = start; i < end - 1; i++)
+            for (int i = start; i < end - 1; i++) {
+                iterations++;
                 swapped = swap(array, i, swapped);
+            }
 
             // Se não houve troca, já está ordenado
             if (!swapped) break;
@@ -44,8 +51,10 @@ public class CocktailSort extends SortingAlgorithm {
 
             // Passagem RTL do vetor, fazendo trocas, caso necessário
             // Inicia do penúltimo elemento pois método swap compara com o próximo elemento sempre
-            for (int i = end - 2; i >= start; i--)
+            for (int i = end - 2; i >= start; i--) {
+                iterations++;
                 swapped = swap(array, i, swapped);
+            }
 
             // Primeiro elemento necessariamente será o menor,
             start++;
@@ -54,6 +63,8 @@ public class CocktailSort extends SortingAlgorithm {
         if (DEBUG) {
             System.out.print("Vetor ordenado final: ");
             printArray(array);
+            System.out.println("Total de trocas: " + swaps);
+            System.out.println("Total de iterações: " + iterations);
         }
     }
 

@@ -16,7 +16,7 @@ public class App {
 
     static {
         try (FileWriter fw = new FileWriter(CSV_FILE)) {
-            fw.write("algorithm,array_size,round,execution_time_ns,execution_time_formatted\n");
+            fw.write("algorithm,array_size,round,execution_time_ns,execution_time_formatted,swaps,iterations\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -41,15 +41,17 @@ public class App {
         csvWriter.start();
     }
 
-    private static void logResult(String algorithm, int size, int round, long executionTime) {
+    private static void logResult(String algorithm, int size, int round, long executionTime, long swaps, long iterations) {
         String formattedTime = TestingUtils.formatTime(executionTime);
 
-        String csvLine = String.format("%s,%d,%d,%d,%s\n",
+        String csvLine = String.format("%s,%d,%d,%d,%s,%d,%d\n",
                 algorithm,
                 size,
                 round,
                 executionTime,
-                formattedTime
+                formattedTime,
+                swaps,
+                iterations
         );
 
         resultQueue.offer(csvLine);
@@ -61,6 +63,8 @@ public class App {
 
         for (int size : SIZES) {
             long totalTime = 0;
+            long totalIterations = 0;
+            long totalSwaps = 0;
 
             for (int round = 0; round < ROUNDS; round++) {
                 int[] arr = DEBUG ? new int[]{5, 2, 4, 6, 1, 3, 8, 6, 9, 7} : TestingUtils.generateArray(rand, size);
@@ -69,18 +73,23 @@ public class App {
                 sortingAlgorithm.sort(arr);
                 long endTime = System.nanoTime();
 
-                if (!sortingAlgorithm.isSorted(arr))
+                if (!SortingAlgorithm.isSorted(arr))
                     throw new AssertionError("Array não está ordenado!");
 
                 long roundTime = endTime - startTime;
                 totalTime += roundTime;
 
-                logResult(algorithmName, size, round + 1, roundTime);
+                totalIterations += SortingAlgorithm.iterations;
+                totalSwaps += SortingAlgorithm.swaps;
 
-                System.out.printf("Tamanho: %d, Round: %d, Tempo: %s%n", size, round + 1, TestingUtils.formatTime(roundTime));
+                logResult(algorithmName, size, round + 1, roundTime, SortingAlgorithm.swaps, SortingAlgorithm.iterations);
+
+                System.out.printf("Tamanho: %d, Round: %d, Tempo: %s, Iterações: %d, Trocas: %d\n", size, round + 1, TestingUtils.formatTime(roundTime), SortingAlgorithm.iterations, SortingAlgorithm.swaps);
             }
 
-            System.out.printf("Tempo médio para tamanho %d: %s%n%n", size, TestingUtils.formatTime(totalTime / ROUNDS));
+            System.out.printf("Tempo de execução médio para tamanho %d: %s\n", size, TestingUtils.formatTime(totalTime / ROUNDS));
+            System.out.printf("Número médio de iterações para tamanho %d: %d\n", size, totalIterations / ROUNDS);
+            System.out.printf("Número médio de trocas para tamanho %d: %d\n\n", size, totalSwaps / ROUNDS);
         }
     }
 

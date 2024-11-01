@@ -7,8 +7,13 @@ public class InsertionSort extends SortingAlgorithm {
 
     @Override
     public void sort(int[] array) {
+        swaps = 0;
+        iterations = 0;
+
         // Percorre o array a partir do segundo elemento
         for (int i = 1; i < array.length; i++) {
+            iterations++;
+
             // Guarda o elemento atual que será inserido na parte ordenada
             // Fazemos isso pois iremos deslocar elementos maiores para frente e precisamos manter o valor original
             int el = array[i];
@@ -26,18 +31,24 @@ public class InsertionSort extends SortingAlgorithm {
             // O loop continua enquanto ainda há elementos para comparar na parte ordenada
             // e o elemento atual é menor que o elemento comparado
             while (j >= 0 && array[j] > el) {
+                iterations++;
+
                 if (DEBUG)
                     System.out.printf("  Movendo %d da posição %d para posição %d\n", array[j], j, j + 1);
 
                 array[j + 1] = array[j];
+                swaps++;
                 j--;
 
                 if (DEBUG)
                     printArrayWithMarkers(array, j + 1, j + 2);
             }
 
-            // Insere o elemento na posição correta
-            array[j + 1] = el;
+            // Se o elemento foi movido (j+1 != i), conta como uma troca
+            if (j + 1 != i) {
+                array[j + 1] = el;
+                swaps++; // A inserção final conta como uma troca
+            }
 
             if (DEBUG) {
                 System.out.printf("  Elemento %d inserido na posição %d\n", array[i], j + 1);
@@ -46,6 +57,8 @@ public class InsertionSort extends SortingAlgorithm {
         }
 
         if (DEBUG) {
+            System.out.println("Total de trocas: " + swaps);
+            System.out.println("Total de iterações: " + iterations);
             System.out.print("\nVetor ordenado final: ");
             printArray(array);
         }

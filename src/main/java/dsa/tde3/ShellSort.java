@@ -7,6 +7,9 @@ public class ShellSort extends SortingAlgorithm {
 
     @Override
     public void sort(int[] array) {
+        iterations = 0;
+        swaps = 0;
+
         // Inicia distância das comparações
         // Várias sequências de gaps podem ser utilizadas, essa implementação utiliza a sequência de Knuth
         // gap = 1, 4 (3 * 1 + 1), 13 (3 * 4 + 1), 40 (3 * 13 + 1), 121 (3 * 40 + 1), ...
@@ -25,6 +28,8 @@ public class ShellSort extends SortingAlgorithm {
 
             // Percorre o array a partir do gap. Aqui será realizado um insertion sort para cada grupo de elementos
             for (int i = gap; i < array.length; i++) {
+                iterations++;
+
                 // Elemento a ser inserido no grupo ordenado
                 int temp = array[i];
 
@@ -34,13 +39,19 @@ public class ShellSort extends SortingAlgorithm {
                 // Move os elementos maiores que temp para frente
                 int j = i;
                 while (j >= gap && array[j - gap] > temp) {
+                    iterations++;
                     if (DEBUG)
                         System.out.printf("  Movendo \"%d\" da posição %d para posição %d%n", array[j - gap], j - gap, j);
                     array[j] = array[j - gap];
+                    swaps++;
                     j -= gap;
                 }
 
-                array[j] = temp;
+                // Insere temp na posição correta
+                if (j != i) {
+                    array[j] = temp;
+                    swaps++;
+                }
 
                 if (DEBUG)
                     printArrayWithGaps(array, gap, 1);
@@ -56,6 +67,8 @@ public class ShellSort extends SortingAlgorithm {
         if (DEBUG) {
             System.out.print("\nVetor ordenado final: ");
             printArray(array);
+            System.out.println("Total de trocas: " + swaps);
+            System.out.println("Total de iterações: " + iterations);
         }
     }
 

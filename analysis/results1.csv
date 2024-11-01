@@ -1,25 +1,6 @@
-algorithm,array_size,round,execution_time_ns,execution_time_formatted
-InsertionSort,10,1,18019,18_019 ns
-InsertionSort,10,2,6286,6_286 ns
-InsertionSort,10,3,2864,2_864 ns
-InsertionSort,10,4,3702,3_702 ns
-InsertionSort,10,5,3842,3_842 ns
-InsertionSort,1000,1,5210639,5_210_639 ns (5.2106 ms)
-InsertionSort,1000,2,6498213,6_498_213 ns (6.4982 ms)
-InsertionSort,1000,3,280967,280_967 ns
-InsertionSort,1000,4,235990,235_990 ns
-InsertionSort,1000,5,236549,236_549 ns
-InsertionSort,10000,1,19981913,19_981_913 ns (19.9819 ms)
-InsertionSort,10000,2,12359274,12_359_274 ns (12.3593 ms)
-InsertionSort,10000,3,6370684,6_370_684 ns (6.3707 ms)
-InsertionSort,10000,4,6764514,6_764_514 ns (6.7645 ms)
-InsertionSort,10000,5,6415801,6_415_801 ns (6.4158 ms)
-InsertionSort,100000,1,644016675,644_016_675 ns (644.0167 ms)
-InsertionSort,100000,2,627770175,627_770_175 ns (627.7702 ms)
-InsertionSort,100000,3,634241514,634_241_514 ns (634.2415 ms)
-InsertionSort,100000,4,629756744,629_756_744 ns (629.7567 ms)
-InsertionSort,100000,5,632462923,632_462_923 ns (632.4629 ms)
-InsertionSort,1000000,1,66480467810,66_480_467_810 ns (1.1000 min)
-InsertionSort,1000000,2,64136175101,64_136_175_101 ns (1.0667 min)
-InsertionSort,1000000,3,63610987464,63_610_987_464 ns (1.0500 min)
-InsertionSort,1000000,4,63647455780,63_647_455_780 ns (1.0500 min)
+algorithm,array_size,round,execution_time_ns,execution_time_formatted,swaps,iterations
+BogoSort,10,1,376671272,376_671_272 ns (376.6713 ms),29962337,42372700
+BogoSort,10,2,284332997,284_332_997 ns (284.3330 ms),23341137,33007320
+BogoSort,10,3,524532275,524_532_275 ns (524.5323 ms),47917520,67771900
+BogoSort,10,4,303948884,303_948_884 ns (303.9489 ms),28108337,39751150
+BogoSort,10,5,1095893022,1_095_893_022 ns (1.0959 s),104741802,148118370

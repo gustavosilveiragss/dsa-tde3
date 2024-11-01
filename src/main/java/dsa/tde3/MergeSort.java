@@ -7,10 +7,16 @@ public class MergeSort extends SortingAlgorithm {
 
     @Override
     public void sort(int[] array) {
+        iterations = 0;
+        swaps = 0;
+
         mergeSort(array, 0, array.length - 1, 0);
+
         if (DEBUG) {
             System.out.print("\nVetor ordenado final: ");
             printArray(array, 0, array.length - 1, array.length - 1, 0);
+            System.out.println("Total de trocas: " + swaps);
+            System.out.println("Total de iterações: " + iterations);
         }
     }
 
@@ -41,15 +47,31 @@ public class MergeSort extends SortingAlgorithm {
         int rightIdx = middle + 1;
 
         // Enquanto houver elementos em ambos os subvetores, adiciona o menor elemento entre os subvetores ao vetor temporário
-        while (leftIdx <= middle && rightIdx <= right)
-            temp[tempIdx++] = (array[leftIdx] <= array[rightIdx]) ? array[leftIdx++] : array[rightIdx++];
+        while (leftIdx <= middle && rightIdx <= right) {
+            iterations++;
+            if (array[leftIdx] <= array[rightIdx]) {
+                temp[tempIdx++] = array[leftIdx++];
+            } else {
+                temp[tempIdx++] = array[rightIdx++];
+            }
+            swaps++;
+        }
 
         // Adicionar os elementos restantes dos subvetores ao vetor temporário
-        while (leftIdx <= middle) temp[tempIdx++] = array[leftIdx++];
-        while (rightIdx <= right) temp[tempIdx++] = array[rightIdx++];
+        while (leftIdx <= middle) {
+            temp[tempIdx++] = array[leftIdx++];
+            swaps++;
+        }
+        while (rightIdx <= right) {
+            temp[tempIdx++] = array[rightIdx++];
+            swaps++;
+        }
 
         // Copia os elementos ordenados do vetor temporário para o vetor original
-        for (leftIdx = 0; leftIdx < tempIdx; leftIdx++) array[left + leftIdx] = temp[leftIdx];
+        for (leftIdx = 0; leftIdx < tempIdx; leftIdx++) {
+            array[left + leftIdx] = temp[leftIdx];
+            swaps++;
+        }
 
         if (DEBUG) {
             String offset = "  ".repeat(depth);

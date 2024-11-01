@@ -7,10 +7,15 @@ public class BubbleSort extends SortingAlgorithm {
 
     @Override
     public void sort(int[] array) {
+        iterations = 0;
+        swaps = 0;
+
         int end = array.length;
 
         // Continua ordenando enquanto houver trocas
         while (true) {
+            iterations++;
+
             boolean swapped = false;
 
             if (DEBUG) {
@@ -20,19 +25,23 @@ public class BubbleSort extends SortingAlgorithm {
             }
 
             // Passagem pelo vetor, fazendo trocas quando necessário
-            for (int i = 0; i < end - 1; i++)
+            for (int i = 0; i < end - 1; i++) {
+                iterations++;
                 swapped = swap(array, i, swapped);
+            }
 
             // Se não houve troca, vetor está ordenado
             if (!swapped) break;
 
-            // Último elemento já está ordenado, reduz área de busca
+            // Último elemento já está ordenado, reduz range de busca
             end--;
         }
 
         if (DEBUG) {
             System.out.print("Vetor ordenado final: ");
             printArray(array);
+            System.out.println("Total de trocas: " + swaps);
+            System.out.println("Total de iterações: " + iterations);
         }
     }
 

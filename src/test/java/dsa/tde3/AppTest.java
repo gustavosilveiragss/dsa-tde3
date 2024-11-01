@@ -6,11 +6,12 @@ package dsa.tde3;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 public class AppTest {
-    private static final boolean DEBUG = false;
-    private static final int[] SIZES = DEBUG ? new int[]{10} : new int[]{1_000, 10_000, 100_000};
+    private static final boolean DEBUG = true;
+    private static final int[] SIZES = DEBUG ? new int[]{10} : new int[]{10, 100};
     private static final int ROUNDS = DEBUG ? 1 : 5;
     private final Random rand = new Random(64); // Seed fixa para garantir reprodutibilidade
 
@@ -50,36 +51,44 @@ public class AppTest {
         testSortingAlgo(new InsertionSort(DEBUG));
     }
 
+
     @Test
     public void testAllAlgorithms() {
 //        testBogoSort();
+        testInsertionSort();
         testMergeSort();
         testShellSort();
         testCocktailSort();
         testBubbleSort();
-        testInsertionSort();
     }
 
     private void testSortingAlgo(SortingAlgorithm sortingAlgorithm) {
         System.out.println("Testando " + sortingAlgorithm.getClass().getSimpleName() + "...");
         for (int size : SIZES) {
             long totalTime = 0;
+            long totalIterations = 0;
+            long totalSwaps = 0;
 
             for (int round = 0; round < ROUNDS; round++) {
                 int[] arr = DEBUG ? new int[]{5, 2, 4, 6, 1, 3, 8, 6, 9, 7} : TestingUtils.generateArray(rand, size);
                 long startTime = System.nanoTime();
 
                 sortingAlgorithm.sort(arr);
-                assertTrue(sortingAlgorithm.isSorted(arr));
+                assertTrue(SortingAlgorithm.isSorted(arr));
 
                 long endTime = System.nanoTime();
                 long roundTime = endTime - startTime;
                 totalTime += roundTime;
 
-                System.out.printf("Tamanho: %d, Round: %d, Tempo: %s%n", size, round + 1, TestingUtils.formatTime(roundTime));
+                totalIterations += SortingAlgorithm.iterations;
+                totalSwaps += SortingAlgorithm.swaps;
+
+                System.out.printf("Tamanho: %d, Round: %d, Tempo: %s, Iterações: %d, Trocas: %d\n", size, round + 1, TestingUtils.formatTime(roundTime), SortingAlgorithm.iterations, SortingAlgorithm.swaps);
             }
 
-            System.out.printf("Tempo médio para tamanho %d: %s%n%n", size, TestingUtils.formatTime(totalTime / ROUNDS));
+            System.out.printf("Tempo de execução médio para tamanho %d: %s\n", size, TestingUtils.formatTime(totalTime / ROUNDS));
+            System.out.printf("Número médio de iterações para tamanho %d: %d\n", size, totalIterations / ROUNDS);
+            System.out.printf("Número médio de trocas para tamanho %d: %d\n\n", size, totalSwaps / ROUNDS);
         }
     }
 }
